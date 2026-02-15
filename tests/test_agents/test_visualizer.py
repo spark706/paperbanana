@@ -36,3 +36,17 @@ def test_extract_code_handles_truncated_generic_block(tmp_path):
     response = "```\nprint('hello')\n"
     code = agent._extract_code(response)
     assert code == "print('hello')"
+
+
+def test_extract_code_handles_complete_python_block(tmp_path):
+    agent = _make_agent(tmp_path)
+    response = "```python\nprint('ok')\n```\nextra"
+    code = agent._extract_code(response)
+    assert code == "print('ok')"
+
+
+def test_extract_code_handles_plain_code_response(tmp_path):
+    agent = _make_agent(tmp_path)
+    response = "import matplotlib.pyplot as plt\nplt.figure()"
+    code = agent._extract_code(response)
+    assert code == response
