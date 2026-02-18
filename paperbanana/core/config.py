@@ -88,6 +88,20 @@ class Settings(BaseSettings):
     openai_vlm_model: Optional[str] = Field(default=None, alias="OPENAI_VLM_MODEL")
     openai_image_model: Optional[str] = Field(default=None, alias="OPENAI_IMAGE_MODEL")
 
+    @property
+    def effective_vlm_model(self) -> str:
+        """Return the VLM model for the active provider."""
+        if self.vlm_provider == "openai" and self.openai_vlm_model:
+            return self.openai_vlm_model
+        return self.vlm_model
+
+    @property
+    def effective_image_model(self) -> str:
+        """Return the image model for the active provider."""
+        if self.image_provider == "openai_imagen" and self.openai_image_model:
+            return self.openai_image_model
+        return self.image_model
+
     # SSL
     skip_ssl_verification: bool = Field(default=False, alias="SKIP_SSL_VERIFICATION")
 

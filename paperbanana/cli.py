@@ -231,8 +231,8 @@ def generate(
     console.print(
         Panel.fit(
             f"[bold]PaperBanana[/bold] - Generating Methodology Diagram\n\n"
-            f"VLM: {settings.vlm_provider} / {settings.vlm_model}\n"
-            f"Image: {settings.image_provider} / {settings.image_model}\n"
+            f"VLM: {settings.vlm_provider} / {settings.effective_vlm_model}\n"
+            f"Image: {settings.image_provider} / {settings.effective_image_model}\n"
             f"Iterations: {iter_label}",
             border_style="blue",
         )
