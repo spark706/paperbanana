@@ -25,9 +25,7 @@ class TestFindPromptDir:
         resolved = Path(result)
         if resolved.is_absolute() or resolved.exists():
             # Found the package-relative prompts dir
-            assert (resolved / "evaluation").exists() or (
-                resolved / "diagram"
-            ).exists()
+            assert (resolved / "evaluation").exists() or (resolved / "diagram").exists()
         else:
             # Fell back to default "prompts"
             assert result == "prompts"
@@ -39,9 +37,7 @@ class TestFindPromptDir:
         import paperbanana.core.utils as utils_mod
 
         original_file = utils_mod.__file__
-        monkeypatch.setattr(
-            utils_mod, "__file__", str(tmp_path / "fake" / "core" / "utils.py")
-        )
+        monkeypatch.setattr(utils_mod, "__file__", str(tmp_path / "fake" / "core" / "utils.py"))
         try:
             assert find_prompt_dir() == "prompts"
         finally:
